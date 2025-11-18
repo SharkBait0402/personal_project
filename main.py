@@ -8,12 +8,27 @@ def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     clock = pygame.time.Clock()
     running = True
+    dt = 0
+
+    color1, color2, color3, color4 = "black", "black", "black", "black"
+
 
     while running:
+        
+        print(dt)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    mouse_pos = pygame.mouse.get_pos()
+                    if box1.collidepoint(mouse_pos[0], mouse_pos[1]):
+                        if color1 == "black":
+                            color1 = "red"
+                        mouse_pos = (0, 0)
+                        print("collision detected")
+
 
 
         screen.fill("gray")
@@ -30,25 +45,17 @@ def main():
         box3 = pygame.Rect(left, (top + square_outer_dim + gap), square_outer_dim, square_outer_dim)
         box4 = pygame.Rect((left + square_outer_dim + gap), (top + square_outer_dim + gap), square_outer_dim, square_outer_dim)
 
-        color1 = "black"
 
         pygame.draw.rect(screen, color1, box1)
         pygame.draw.rect(screen, "black", box2)
         pygame.draw.rect(screen, "black", box3)
         pygame.draw.rect(screen, "black", box4)
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                mouse_pos = pygame.mouse.get_pos()
-
-        if box1.collidepoint(mouse_pos[0], mouse_pos[1]):
-            color1 = "red"
-            mouse_pos = (0, 0)
-            print("collision detected")
+        color1, color2, color3, color4 = "black", "black", "black", "black"
 
         pygame.display.flip()
 
-        clock.tick(60)
+        dt = clock.tick(60)
 
     pygame.quit()
 
