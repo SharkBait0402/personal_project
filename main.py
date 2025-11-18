@@ -12,10 +12,11 @@ def main():
 
     color1, color2, color3, color4 = "black", "black", "black", "black"
 
+    speed = 0
+
+    delay = pygame.event.custom_type()
 
     while running:
-        
-        print(dt)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -24,8 +25,8 @@ def main():
                 if event.button == 1:
                     mouse_pos = pygame.mouse.get_pos()
                     if box1.collidepoint(mouse_pos[0], mouse_pos[1]):
-                        if color1 == "black":
-                            color1 = "red"
+                        color1 = "red"
+                        speed = 0
                         mouse_pos = (0, 0)
                         print("collision detected")
 
@@ -47,11 +48,15 @@ def main():
 
 
         pygame.draw.rect(screen, color1, box1)
-        pygame.draw.rect(screen, "black", box2)
-        pygame.draw.rect(screen, "black", box3)
-        pygame.draw.rect(screen, "black", box4)
+        pygame.draw.rect(screen, color2, box2)
+        pygame.draw.rect(screen, color3, box3)
+        pygame.draw.rect(screen, color4, box4)
 
-        color1, color2, color3, color4 = "black", "black", "black", "black"
+        speed += 1
+
+        if speed == 20:
+            color1, color2, color3, color4 = "black", "black", "black", "black"
+            speed = 0
 
         pygame.display.flip()
 
