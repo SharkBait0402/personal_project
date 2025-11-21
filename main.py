@@ -12,17 +12,18 @@ def main():
     dt = 0
 
     colors = ["black", "black", "black", "black"]
+    true_colors = ["red", "green", "blue", "yellow"]
 
     speed = 0
 
     score = 0
 
-    guessing_time = pygame.event.custom_type()
+    guessing_time = False
     display_list = pygame.event.custom_type()
 
     start = False
 
-    winning = [0, 1, 2, 3]
+    winning = [0, 1, 1, 3]
 
     while running:
 
@@ -30,14 +31,33 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == display_list:
-                cycle_list(winning, colors, screen, boxes)
+                pygame.event.set_blocked(pygame.MOUSEBUTTONDOWN)
+                for color in winning:
+
+                    pygame.draw.rect(screen, true_colors[color], boxes[color])
+                    pygame.display.flip()
+
+                    pygame.time.delay(1000)
+
+                    pygame.draw.rect(screen, "black", boxes[color])
+                    pygame.display.flip()
+
+                    pygame.time.delay(250)
                 speed = 0
-                print("displaying list")
+
+                pygame.event.set_allowed(pygame.MOUSEBUTTONDOWN)
+                print("select the boxes in the order they appeared")
+
+                guessing_time = True
+                
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    colors = collide_logic(boxes[0], boxes[1], boxes[2], boxes[3])
                     start = start_pressed(start_button)
-                    speed = 0
+                    if guessing_time:
+                        colors = collide_logic(boxes[0], boxes[1], boxes[2], boxes[3])[0]
+                        speed = 0
+                    else:
+                        print("press the green button to start the game")
 
 
 
