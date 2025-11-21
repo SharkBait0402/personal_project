@@ -15,17 +15,21 @@ def main():
 
     speed = 0
 
-    delay = pygame.event.custom_type()
+    guessing_time = pygame.event.custom_type()
+    display_list = pygame.event.custom_type()
 
     while running:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == display_list:
+                print("displaying list")
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     colors = collide_logic(box1, box2, box3, box4)
                     speed = 0
+                    pygame.event.post(pygame.event.Event(display_list))
 
 
 
