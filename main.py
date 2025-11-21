@@ -58,29 +58,35 @@ def main():
                 if event.button == 1:
                     start = start_pressed(start_button)
                     if guessing_time:
+
                         collide = collide_logic(boxes[0], boxes[1], boxes[2], boxes[3])
                         speed = 0
                         colors = collide[0]
                         picked_box = collide[1]
 
 
-                        if count == (len(winning) - 1):
-                            guessing_time = False
-                            winning.append(random.randint(0,3))
-                            count = 0
-                            score += 1
-                            print(f'score: {score}')
-                            pygame.time.set_timer(display_list, 1000, loops = 1)
-                            continue
-
 
 
                         if picked_box == winning[count]:
                             count += 1
+
+                            if count == (len(winning)):
+                                guessing_time = False
+                                winning.append(random.randint(0,3))
+                                count = 0
+                                score += 1
+                                print(f'score: {score}')
+                                pygame.time.set_timer(display_list, 1000, loops = 1)
+                                break
+    
                         else:
                             print(f"you lose\nscore: {score}")
                             sys.exit()
+                        
                         speed = 0
+
+                        
+
                     else:
                         print("press the green button to start the round")
 
