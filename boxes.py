@@ -14,25 +14,21 @@ def collide_logic(box0, box1, box2, box3):
         picked_box = 0
         speed = 0
         mouse_pos = (0, 0)
-        print("collision detected")
     elif box1.collidepoint(mouse_pos[0], mouse_pos[1]):
         change_colors(1, colors)
         picked_box = 1
         speed = 0
         mouse_pos = (0, 0)
-        print("collision detected")
     elif box2.collidepoint(mouse_pos[0], mouse_pos[1]):
         change_colors(2, colors)
         picked_box = 2
         speed = 0
         mouse_pos = (0, 0)
-        print("collision detected")
     elif box3.collidepoint(mouse_pos[0], mouse_pos[1]):
         change_colors(3, colors)
         picked_box = 3
         speed = 0
         mouse_pos = (0, 0)
-        print("collision detected")
     return colors, picked_box
 
 def start_pressed(button):
