@@ -1,5 +1,5 @@
 import pygame
-from boxes import collide_logic, start_pressed
+from boxes import collide_logic, start_pressed, cycle_list
 
 def main():
 
@@ -22,16 +22,20 @@ def main():
 
     start = False
 
+    winning = [0, 1, 2, 3]
+
     while running:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == display_list:
+                cycle_list(winning, colors, screen, boxes)
+                speed = 0
                 print("displaying list")
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    colors = collide_logic(box0, box1, box2, box3)
+                    colors = collide_logic(boxes[0], boxes[1], boxes[2], boxes[3])
                     start = start_pressed(start_button)
                     speed = 0
 
@@ -47,10 +51,11 @@ def main():
 
         mouse_pos = (0, 0)
 
-        box0= pygame.Rect(left, top, square_outer_dim, square_outer_dim)
-        box1 = pygame.Rect((left + square_outer_dim + gap), top, square_outer_dim, square_outer_dim)
-        box2 = pygame.Rect(left, (top + square_outer_dim + gap), square_outer_dim, square_outer_dim)
-        box3 = pygame.Rect((left + square_outer_dim + gap), (top + square_outer_dim + gap), square_outer_dim, square_outer_dim)
+        boxes = [None , None, None, None]
+        boxes[0]= pygame.Rect(left, top, square_outer_dim, square_outer_dim)
+        boxes[1] = pygame.Rect((left + square_outer_dim + gap), top, square_outer_dim, square_outer_dim)
+        boxes[2] = pygame.Rect(left, (top + square_outer_dim + gap), square_outer_dim, square_outer_dim)
+        boxes[3] = pygame.Rect((left + square_outer_dim + gap), (top + square_outer_dim + gap), square_outer_dim, square_outer_dim)
 
         start_width = square_outer_dim / 2
         start_height = start_width / 2
@@ -65,10 +70,10 @@ def main():
 
 
 
-        pygame.draw.rect(screen, colors[0], box0)
-        pygame.draw.rect(screen, colors[1], box1)
-        pygame.draw.rect(screen, colors[2], box2)
-        pygame.draw.rect(screen, colors[3], box3)
+        pygame.draw.rect(screen, colors[0], boxes[0])
+        pygame.draw.rect(screen, colors[1], boxes[1])
+        pygame.draw.rect(screen, colors[2], boxes[2])
+        pygame.draw.rect(screen, colors[3], boxes[3])
         
         pygame.draw.rect(screen, "darkgreen", start_button)
 
@@ -83,6 +88,7 @@ def main():
         dt = clock.tick(60)
 
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()

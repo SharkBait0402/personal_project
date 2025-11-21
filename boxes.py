@@ -50,9 +50,14 @@ def change_colors(box_num, colors):
     colors[box_num] = color
     return
 
-
-def cycle_list(key, colors):
+def cycle_list(key, colors, screen, boxes):
     for color in key:
-        pass
-        
+        change_colors(color, colors)
+        pygame.draw.rect(screen, colors[color], boxes[color])
+        pygame.time.delay(250)
+    return
+
+def show_red():
+    pass
+
 
